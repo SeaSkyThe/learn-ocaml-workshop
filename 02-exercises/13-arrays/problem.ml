@@ -54,7 +54,7 @@ let () =
 
    Let's implement a function [double] using [Array.iteri], which takes an [int
    array] and doubles each element of the array in place. *)
-let double array : unit = failwith "For you to implement"
+let double array : unit = Array.iteri array ~f:(fun i x -> (array.(i) <- x * 2))
 
 let%test "Testing double..." = 
   let array = [| 1; 1; 1 |] in
@@ -72,7 +72,12 @@ let%test "Testing double..." =
 
 (* Write a function that takes an [int array] and a list of indicies and
    doubles each of the elements at the specified indices. *)
-let double_selectively array indices : unit = failwith "For you to implement"
+let double_selectively array indices : unit = 
+    Array.iteri 
+        array
+        ~f:(
+            fun i x -> if List.mem indices i ~equal: equal then (array.(i) <- x * 2)
+        )
 
 let%test "Testing double_selectively..." = 
   let array = [| 1; 1; 1 |] in
@@ -103,7 +108,15 @@ let () =
 
 (* Write a function that takes an [int array array] and doubles each of the
    elements at the specified indices. *)
-let double_matrix matrix : unit = failwith "For you to implement"
+let double_matrix matrix : unit = 
+    Array.iteri
+        matrix
+        ~f: (
+            fun i row -> Array.iteri row ~f: (fun i x -> row.(i) <- x * 2)
+        )
+;;
+
+let double array : unit = Array.iteri array ~f:(fun i x -> (array.(i) <- x * 2))
 
 let%test "Testing double_matrix..." = 
   let matrix = [| [| 1; 2; 3 |]; [| 1; 1; 1 |] |] in
