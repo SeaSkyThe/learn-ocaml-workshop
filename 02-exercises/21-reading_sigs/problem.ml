@@ -24,6 +24,8 @@ module Example : sig
      values). This value takes an integer as a parameter and returns an integer.
   *)
   val subtract_one : int -> int
+
+  val a_secret_value : int
 end = struct
   let the_meaning_of_life_the_universe_and_everything = 42
   let subtract_one x = x - 1
@@ -42,9 +44,9 @@ let () =
   assert (one_less_than_the_meaning_of_life_etc = 41)
 
 (* Try uncommenting this line of code. What does the compiler tell you? *)
-(* let () = 
- *   assert (Example.a_secret_value = 17)  *)
-    
+let () = 
+   assert (Example.a_secret_value = 17)
+
 (* Types can be exposed via signatures in OCaml as well. Here's an example of
    declaring an "abstract" type - one where the definition of the type is not
    exposed. *)
@@ -81,6 +83,8 @@ module Fraction : sig
   (* Now, add signatures for the create and value functions to expose them in
      the [Fraction] module. Note that you shouldn't need to change any of the
      underlying implementation, nor change anything about how [t] is exposed. *)
+  val create : numerator:'a -> denominator: 'b -> 'a * 'b
+  val value : int * int -> float
 end = struct
   type t = int * int
 
